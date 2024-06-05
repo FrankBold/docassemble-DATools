@@ -36,3 +36,15 @@ def list_nocodb_record(table_id: str, fields: str = "", viewId: str = "", filter
             params['offset'] += 25
     
     return all_records
+
+def create_record(table_id: str, data: dict):
+    url = f"{get_config('nocodbUrl')}/api/v2/tables/{table_id}/records"
+
+    # Define the headers with the API key
+    headers = {
+        "xc-token": get_config('nocodbToken')
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    return response.json()
