@@ -66,6 +66,6 @@ def update_record(table_id: str, row_id: str, data: dict):
         }
     ]
 
-    response = requests.patch(url, headers=headers, json=json.dumps(data))
+    response = requests.patch(url, headers=headers, json=data)
 
     return response.json()
