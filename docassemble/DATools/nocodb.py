@@ -51,7 +51,7 @@ def create_record(table_id: str, data: dict):
 
     return response.json()
 
-def update_record(table_id: str, row_id: str, data: dict):
+def update_record(table_id: str, row_id: str, content: dict):
 
     url = f"{get_config('nocodbUrl')}/api/v2/tables/{table_id}/records"
 
@@ -61,10 +61,11 @@ def update_record(table_id: str, row_id: str, data: dict):
 
     data = [
         {
-            "Id":row_id,
-            "dataSpolek": json.dumps(data)
+            "Id": row_id,
         }
     ]
+
+    data[0].update(content)
 
     response = requests.patch(url, headers=headers, json=data)
 
