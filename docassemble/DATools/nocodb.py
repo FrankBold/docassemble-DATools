@@ -1,4 +1,6 @@
 import requests
+import json
+
 from docassemble.base.util import get_config
 
 def list_nocodb_record(table_id: str, fields: str = "", viewId: str = "", filter: str= ""):
@@ -46,5 +48,24 @@ def create_record(table_id: str, data: dict):
     }
 
     response = requests.post(url, headers=headers, json=data)
+
+    return response.json()
+
+def update_record(table_id: str, row_id: str, data: dict):
+
+    url = f"{get_config('nocodbUrl')}/api/v2/tables/{table_id}/records"
+
+    headers = {
+        "xc-token": get_config('nocodbToken')
+    }
+
+    data = [
+        {
+            "Id":row_id,
+            "spolekData": data
+        }
+    ]
+
+    response = requests.patch(url, headers=headers, json=json.dumps(data))
 
     return response.json()
