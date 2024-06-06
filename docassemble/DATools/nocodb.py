@@ -62,7 +62,7 @@ def update_record(table_id: str, row_id: str, data: dict):
     data = [
         {
             "Id":row_id,
-            "dataSpolek": data
+            "dataSpolek": json.dumps(data)
         }
     ]
 
