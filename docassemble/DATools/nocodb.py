@@ -70,3 +70,19 @@ def update_record(table_id: str, row_id: str, content: dict):
     response = requests.patch(url, headers=headers, json=data)
 
     return response.json()
+
+def get_record(table_id: str, row_id: str, fields: str = ""):
+
+    url = f"{get_config('nocodbUrl')}/api/v2/tables/{table_id}/records/{row_id}"
+
+    headers = {
+        "xc-token": get_config('nocodbToken')
+    }
+
+    params = {
+        "fields": fields
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+
+    return response.json()
